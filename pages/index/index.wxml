@@ -1,0 +1,55 @@
+<!--index.wxml-->
+<view class="container" bindtouchstart='touchStart' catchtouchend='showSearch'>
+ <view class="search-btn" data-type='btn' catchtap='showSearch'>
+    <image class="search-icon" mode="aspectFit" src="/images/search-icon.png"></image>
+  </view>
+  <scroll-view class="content" scroll-y='true' bindscrolltolower='loadMore'>
+  <view class="waterFull">
+    <view class="flex-wrapper">
+        <block wx:for="{{images}}" wx:key="index">
+          <navigator  wx:if="{{index % 2 === 0}}"   class="content-item {{index % 2 !== 0 ?'no-margin-right':''}}" url="/pages/detail/detail?id={{item.id}}">
+            <image class="content-pic" src="{{item.photo_url}}" lazy-load='true' mode='widthFix'></image>
+          </navigator>
+        </block>
+    </view>
+    <view class="flex-wrapper">
+      <block wx:for="{{images}}" wx:key="index">
+        <navigator  wx:if="{{index % 2 !== 0}}"  class="content-item {{index % 2 === 0 ?'no-margin-right':''}}" url="/pages/detail/detail?id={{item.id}}">
+          <image class="content-pic"  src="{{item.photo_url}}"  lazy-load='true'  mode='widthFix'></image>
+        </navigator>
+      </block>
+    </view>
+  </view>
+  <view class="loading" wx:if="{{loadFlag}}">
+    <image class="loading-pic" src="/images/loading.gif"></image>
+  </view>
+  </scroll-view>
+  <view class="nav">
+    <image class="nav-icon" src="/images/camera.png"></image>
+  </view> 
+  <view class="layer {{layerHide ? 'hidden' : ''}}" animation="{{animationData2}}"></view>
+  <view class="search-page" animation="{{animationData1}}" bindtouchstart='touchStart' bindtouchend='hideSearch'>
+    <view class="search">
+        <image class="search_icon"  mode="aspectFit" src="/images/search_icon.png" bindtap='search'></image>
+        <input class="search-input" value="{{searchValue}}" focus="true"  bindinput="bindKeyInput" type="text" placeholder='请输入查询内容'/>
+    </view>
+    <view class="star">我的收藏</view>
+    <scroll-view class="search-content" scroll-y="true"  bindscrolltolower='loadMoreSearch'>
+      <view class="search-result"  wx:if="{{searchValue && searchImages.length>0}}">
+        <block wx:for="{{searchImages}}" wx:key="{{index}}">
+          <navigator url="/pages/detail/detail?id={{item.id}}">
+            <image class="search-pic" src="{{item.photo_url}}"   lazy-load='true' mode='widthFix'></image>
+          </navigator>
+        </block>
+        <view class="loading" wx:if="{{loadFlag}}">
+          <image class="loading-pic" src="/images/loading.gif"></image>
+        </view>
+      </view>
+      <view class="hot-label" wx:else>
+        <block wx:for="{{tags}}" wx:key="{{index}}">
+          <text bindtap='labelSearch' data-label="{{item}}" class="hot-label-item">{{item}}</text>
+        </block>
+      </view>
+    </scroll-view>
+  </view>
+</view>

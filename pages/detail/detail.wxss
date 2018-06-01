@@ -1,0 +1,17 @@
+/* pages/detail/detail.wxss */
+.banner{
+  margin:0;
+  padding:0;
+  width:100%;
+}
+.banner-pic{
+  display: block;
+  width:100%;
+}
+.photographer{
+  display: block;
+  height:40rpx;
+  line-height:40rpx;
+  text-align: center;
+  margin-top:20rpx;
+}

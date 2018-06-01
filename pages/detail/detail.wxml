@@ -1,0 +1,9 @@
+<!--pages/detail/detail.wxml-->
+<view class="container">
+  <view class="banner">
+    <image class="banner-pic" src="{{detail.photo_url}}" mode='widthFix'></image>
+  </view>
+  <view  class="photographer">
+    <text>Photographer：{{detail.photographer}}</text>
+  </view>
+</view>
